@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 3 — LABORATÓRIO          Objetivo: descobrir a SENHA
+  ---------------------------------------------------------------------
+  Mesma estrutura da Sala de Controle (veja os comentários de lá).
+  NOVIDADE nesta página: JANELAS DE DOCUMENTO (modais) com :target.
+
+  A senha é um ENIGMA: a prancheta explica a REGRA da senha e o
+  computador mostra o NÚMERO. O jogador precisa juntar as duas pistas.
+  (Resposta: o experimento é 047 -> de trás pra frente = 740)
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratório | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+<body class="laboratorio">
+
+  <header class="hud">
+    <a class="logo" href="index.html">LAB<span>047</span></a>
+    <ol class="progresso" aria-label="Progresso da missão">
+      <li class="feito">Início</li>
+      <li class="feito">Controle</li>
+      <li aria-current="step">Laboratório</li>
+      <li>Energia</li>
+      <li>Fuga</li>
+      <li>Final</li>
+    </ol>
+    <span class="status">● ENERGIA INSTÁVEL</span>
+  </header>
+
+  <main class="tela layout-sala">
+
+    <section class="area-cena">
+      <p class="sobretitulo">Setor 02 • Pesquisa</p>
+      <h1>Laboratório Experimental</h1>
+      <p class="historia">
+        O cartão abriu a porta com um bip. Tubos com líquido verde borbulham
+        no canto. Numa mesa tem uma prancheta e um computador ligado. No fundo,
+        uma cápsula igual à sua... mas rachada.
+      </p>
+
+      <div class="cena-visual">
+        <img src="imagens/laboratorio.svg" alt="Laboratório com tubos de líquido verde, mesa com prancheta, gaveta aberta, computador e uma cápsula rachada">
+        <label class="hotspot" for="ver-prancheta"  style="--x: 46%; --y: 55%"><span>Prancheta</span></label>
+        <label class="hotspot" for="ver-computador" style="--x: 62%; --y: 62%"><span>Computador</span></label>
+        <label class="hotspot" for="ver-gaveta"     style="--x: 38%; --y: 72%"><span>Gaveta</span></label>
+        <a class="hotspot" href="game-over.html#capsula" style="--x: 85%; --y: 40%"><span>Cápsula</span></a>
+        <a class="hotspot" href="game-over.html#tubos"   style="--x: 14%; --y: 40%"><span>Tubos</span></a>
+        <p class="legenda">CAM 04 // UMIDADE 92% // 1 SUJEITO AUSENTE</p>
+      </div>
+    </section>
+
+    <section class="area-exploracao painel" id="investigar">
+      <h2>O que você quer investigar?</h2>
+      <!-- Mesma cor para todas as opções: as armadilhas (<a>) parecem
+           iguais às opções boas (<label>). -->
+      <ul class="opcoes">
+        <li><a class="botao" href="game-over.html#capsula"><span class="icone">01</span> Abrir a cápsula</a></li>
+        <li><label class="botao" for="ver-prancheta"><span class="icone">02</span> Ler a prancheta</label></li>
+        <li><a class="botao" href="game-over.html#tubos"><span class="icone">03</span> Coletar o líquido dos tubos</a></li>
+        <li><label class="botao" for="ver-computador"><span class="icone">04</span> Usar o computador</label></li>
+        <li><label class="botao" for="ver-gaveta"><span class="icone">05</span> Abrir a gaveta</label></li>
+      </ul>
+
+      <!-- Resultado 01: prancheta = REGRA da senha + item -->
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-prancheta">
+      <article class="resultado painel">
+        <h3>📋 Prancheta</h3>
+        <p>É um protocolo de segurança. Uma frase está grifada:</p>
+        <blockquote class="citacao">
+          "A senha da saída é o <strong>número do experimento</strong>
+          escrito <strong>de trás para frente</strong>."
+        </blockquote>
+
+        <!-- Este link abre a janela do documento completo.
+             href="#doc-prancheta" -> o elemento com id="doc-prancheta"
+             vira o :target e aparece (jogo.css, TRUQUE 3a). -->
+        <p><a href="#doc-prancheta">📄 Ler o documento completo</a></p>
+
+        <div class="item-encontrado">
+          <img src="imagens/item-senha.svg" alt="Bilhete com a regra da senha">
+          <div>
+            <strong>REGRA DA SENHA</strong>
+            <p>Falta descobrir o número do experimento...</p>
+            <input class="coletar oculto" type="checkbox" id="pegar-senha">
+            <label class="pegar" for="pegar-senha">
+              <span class="antes">✍️ Anotar a regra</span>
+              <span class="depois">✓ Anotado no inventário</span>
+            </label>
+          </div>
+        </div>
+      </article>
+
+      <!-- Resultado 02: computador = NÚMERO do experimento -->
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-computador">
+      <article class="resultado painel">
+        <h3>💻 Computador</h3>
+        <!-- <pre> mantém os espaços e quebras de linha exatamente como escritos.
+             Perfeito para imitar a tela de um terminal. -->
+        <pre class="terminal-tela">&gt; consultar sujeito
+  ID ........ EXPERIMENTO 047
+  STATUS .... ACORDADO
+  LOCAL ..... <span class="alerta">DESCONHECIDO</span>
+&gt; _</pre>
+        <p>O número do experimento está bem ali. Será que serve para alguma coisa?</p>
+      </article>
+
+      <!-- Resultado 03: gaveta = DOCUMENTOS SECRETOS (opcional, conta a história) -->
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-gaveta">
+      <article class="resultado painel">
+        <h3>🗂️ Gaveta</h3>
+        <p>Tem uma pasta amarela com um carimbo vermelho: <strong>CONFIDENCIAL</strong>.</p>
+        <a class="botao" href="#doc-confidencial"><span class="icone">📁</span> Abrir a pasta</a>
+      </article>
+
+      <!-- Armadilhas desta sala (cápsula e tubos): links para o game over -->
+    </section>
+
+    <aside class="area-inventario painel inventario">
+      <h2>🎒 Inventário</h2>
+      <table class="tabela-inventario">
+        <caption>Itens necessários para a fuga</caption>
+        <thead>
+          <tr><th scope="col">Item</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <!-- Se o jogador está nesta página, ele COM CERTEZA pegou o cartão
+               (a porta só abre com ele). Por isso o cartão já vem como "tem". -->
+          <tr class="linha-cartao">
+            <td><img src="imagens/item-cartao.svg" alt="">Cartão de acesso</td>
+            <td><span class="estado tem estado-cartao"></span></td>
+          </tr>
+          <tr class="linha-senha">
+            <td><img src="imagens/item-senha.svg" alt="">Senha da saída</td>
+            <td><span class="estado falta estado-senha"></span></td>
+          </tr>
+          <tr class="linha-bateria">
+            <td><img src="imagens/item-bateria.svg" alt="">Bateria 12V</td>
+            <td><span class="estado falta estado-bateria"></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="lista-dicas">
+        <li>Pistas podem estar espalhadas em lugares diferentes.</li>
+        <li>Nem tudo que brilha deve ser aberto.</li>
+      </ul>
+    </aside>
+
+    <nav class="area-saidas saidas" aria-label="Para onde ir">
+      <div class="saida-trancada">🔒 Anote a regra da senha antes de seguir.</div>
+      <a class="botao principal saida-liberada" href="sala-energia.html">🔓 Ir para a Sala de Energia →</a>
+      <a class="botao discreto" href="sala-controle.html">← Voltar à Sala de Controle</a>
+    </nav>
+  </main>
+
+  <!-- =====================================================================
+       JANELAS DE DOCUMENTO (MODAIS)
+       Ficam FORA do <main> de propósito: assim elas cobrem a tela
+       inteira sem serem afetadas pela animação de entrada da página.
+       Começam escondidas e aparecem quando viram o :target.
+       Para FECHAR, o link aponta para "#investigar": o modal deixa de
+       ser o :target (some) e a página rola de volta para as opções.
+       ===================================================================== -->
+  <div class="modal" id="doc-prancheta" role="dialog" aria-label="Protocolo de segurança">
+    <div class="documento">
+      <span class="carimbo">INTERNO</span>
+      <h3>PROTOCOLO DE SEGURANÇA — SETOR B</h3>
+      <p>1. Em caso de falha de energia, a porta de saída só funciona com <strong>bateria portátil 12V</strong>.</p>
+      <p>2. A porta exige <strong>cartão nível 3</strong> e <strong>senha</strong>.</p>
+      <p>3. A senha da saída é o <strong>número do experimento</strong> escrito <strong>de trás para frente</strong>.</p>
+      <p>4. NUNCA retirar a bateria do gerador principal com ele ligado.</p>
+      <p>Assinado: Dr. <span class="rasura">Fulano de Tal</span></p>
+      <a class="fechar" href="#investigar">✕ Fechar documento</a>
+    </div>
+  </div>
+
+  <div class="modal" id="doc-confidencial" role="dialog" aria-label="Pasta confidencial">
+    <div class="documento">
+      <span class="carimbo">CONFIDENCIAL</span>
+      <h3>PROJETO LETE — RELATÓRIO 047</h3>
+      <p>Objetivo do projeto: apagar memórias específicas de voluntários.</p>
+      <p>Sujeito 047: voluntário <span class="rasura">xxxxxxxxxxx</span>. Memória reduzida a 12%.</p>
+      <p>Observação: o sujeito apresentou <strong>resistência</strong> ao apagamento. Ele começa a lembrar
+         dos próprios dados ao ler documentos do laboratório.</p>
+      <p>Foto anexada: <em>[a foto mostra... você]</em></p>
+      <a class="fechar" href="#investigar">✕ Fechar pasta</a>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <nav aria-label="Menu do jogo">
+      <ul>
+        <li><a href="index.html">⌂ Início</a></li>
+        <li><a href="instrucoes.html">? Como jogar</a></li>
+        <li><a href="index.html">↻ Reiniciar jogo</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>

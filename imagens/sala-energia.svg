@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Sala de energia com um gerador soltando faíscas, um quadro de força e um drone desligado no chão">
+<defs>
+  <pattern id="grade" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#3ef0ff" stroke-opacity=".07"/></pattern>
+  <filter id="brilho" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="vinheta" cx="50%" cy="45%" r="70%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect width="800" height="450" fill="#0a0703"/>
+<rect width="800" height="450" fill="url(#grade)"/>
+<rect y="360" width="800" height="90" fill="#0d0905"/>
+<!-- faixa de perigo -->
+<g><rect x="0" y="352" width="800" height="12" fill="#ffb020"/><path d="M0 352 h800" stroke="#000"/>
+<g fill="#0a0703"><path d="M10 352l12 12h12l-12-12z M50 352l12 12h12l-12-12z M90 352l12 12h12l-12-12z M130 352l12 12h12l-12-12z M170 352l12 12h12l-12-12z M210 352l12 12h12l-12-12z M250 352l12 12h12l-12-12z M290 352l12 12h12l-12-12z M330 352l12 12h12l-12-12z M370 352l12 12h12l-12-12z M410 352l12 12h12l-12-12z M450 352l12 12h12l-12-12z M490 352l12 12h12l-12-12z M530 352l12 12h12l-12-12z M570 352l12 12h12l-12-12z M610 352l12 12h12l-12-12z M650 352l12 12h12l-12-12z M690 352l12 12h12l-12-12z M730 352l12 12h12l-12-12z M770 352l12 12h12l-12-12z"/></g></g>
+<!-- gerador -->
+<g>
+  <rect x="60" y="110" width="230" height="240" rx="12" fill="#1a130a" stroke="#ffb020" stroke-opacity=".6" stroke-width="2"/>
+  <circle cx="175" cy="210" r="70" fill="#120d06" stroke="#ffb020" stroke-width="3"/>
+  <path d="M185 160 L150 215 L178 215 L165 262 L205 200 L177 200 Z" fill="#ffb020" filter="url(#brilho)"/>
+  <rect x="85" y="300" width="180" height="30" rx="4" fill="#0d0905" stroke="#5c4110"/>
+  <g fill="#ffb020"><rect x="100" y="308" width="30" height="14"/><rect x="140" y="308" width="30" height="14" fill="#ff3b5c"/></g>
+  <!-- faíscas -->
+  <g stroke="#fff3c4" stroke-width="2" filter="url(#brilho)"><path d="M290 140 l25 -15 M292 150 l30 4 M288 160 l22 18 M60 260 l-22 -8 M62 272 l-26 10"/></g>
+</g>
+<!-- quadro de força -->
+<g>
+  <rect x="360" y="80" width="160" height="190" rx="6" fill="#140f08" stroke="#5c4110" stroke-width="2"/>
+  <g fill="#2a1f10" stroke="#5c4110"><rect x="378" y="105" width="30" height="50"/><rect x="418" y="105" width="30" height="50"/><rect x="458" y="105" width="30" height="50"/></g>
+  <g fill="#ffb020"><rect x="385" y="112" width="16" height="16"/><rect x="425" y="135" width="16" height="16"/><rect x="465" y="112" width="16" height="16"/></g>
+  <rect x="378" y="175" width="124" height="70" fill="#0a0703" stroke="#5c4110"/>
+  <g font-family="monospace" font-size="10" fill="#ffb020"><text x="384" y="192">SAÍDA: SEM ENERGIA</text><text x="384" y="210">USE BATERIA</text><text x="384" y="228">PORTÁTIL 12V</text></g>
+</g>
+<!-- cabos -->
+<path d="M290 230 C330 230 330 180 360 180 M520 200 C600 200 600 120 800 120" stroke="#3a2a10" stroke-width="8" fill="none"/>
+<!-- drone desligado -->
+<g transform="translate(620 300)">
+  <rect x="-40" y="-14" width="80" height="28" rx="10" fill="#1c2630" stroke="#55707f" stroke-width="2"/>
+  <path d="M-40 -6 L-80 -26 M40 -6 L80 -26 M-40 6 L-76 22 M40 6 L76 22" stroke="#55707f" stroke-width="4"/>
+  <g fill="none" stroke="#55707f"><ellipse cx="-80" cy="-26" rx="26" ry="6"/><ellipse cx="80" cy="-26" rx="26" ry="6"/><ellipse cx="-76" cy="22" rx="26" ry="6"/><ellipse cx="76" cy="22" rx="26" ry="6"/></g>
+  <rect x="-16" y="-8" width="32" height="16" rx="3" fill="#ffb020" opacity=".85"/>
+  <circle cx="30" cy="0" r="3" fill="#333"/>
+  <text x="-34" y="36" font-family="monospace" font-size="10" fill="#8ea4b5">DRONE-07 // OFF</text>
+</g>
+<rect width="800" height="450" fill="url(#vinheta)"/>
+</svg>

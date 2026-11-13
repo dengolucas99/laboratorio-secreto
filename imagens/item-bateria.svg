@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Bateria portátil 12V">
+<rect x="20" y="36" width="76" height="50" rx="8" fill="#20180a" stroke="#ffb020" stroke-width="3"/>
+<rect x="96" y="50" width="8" height="22" rx="2" fill="#ffb020"/>
+<rect x="28" y="44" width="40" height="34" rx="3" fill="#ffb020"/>
+<path d="M50 46 L38 64 L48 64 L44 76 L58 58 L48 58 Z" fill="#20180a"/>
+<text x="72" y="66" font-family="monospace" font-size="10" fill="#ffb020">12V</text>
+</svg>

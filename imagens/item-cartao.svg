@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Cartão de acesso nível 3">
+<rect x="14" y="28" width="92" height="64" rx="8" fill="#b3122e" stroke="#ff8a9e" stroke-width="2"/>
+<rect x="24" y="44" width="22" height="16" rx="3" fill="#ffd36b"/>
+<path d="M24 52h22 M35 44v16" stroke="#b38b2a"/>
+<text x="56" y="56" font-family="monospace" font-size="11" fill="#fff" font-weight="bold">NÍVEL 3</text>
+<rect x="24" y="72" width="72" height="8" rx="2" fill="#000" opacity=".4"/>
+<circle cx="96" cy="38" r="4" fill="#fff" opacity=".8"/>
+</svg>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 6A — FINAL: VITÓRIA
+  ---------------------------------------------------------------------
+  Confirma que o jogador venceu. Mostra um relatório da missão em
+  tabela e esconde uma "revelação" dentro de <details>.
+
+  <details> + <summary> é um recurso do PRÓPRIO HTML: cria uma caixa
+  que abre e fecha ao clicar, sem precisar de JavaScript nem de truque.
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Você escapou! | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+<body class="vitoria">
+
+  <header class="hud">
+    <a class="logo" href="index.html">LAB<span>047</span></a>
+    <ol class="progresso" aria-label="Progresso da missão">
+      <li class="feito">Início</li>
+      <li class="feito">Controle</li>
+      <li class="feito">Laboratório</li>
+      <li class="feito">Energia</li>
+      <li class="feito">Fuga</li>
+      <li aria-current="step">Final</li>
+    </ol>
+    <span class="status">● ACESSO AUTORIZADO</span>
+  </header>
+
+  <main class="tela final">
+    <div class="selo" aria-hidden="true">✓</div>
+    <p class="sobretitulo">Final 01 // Missão concluída</p>
+    <h1>Você escapou!</h1>
+
+    <figure class="cena-visual">
+      <img src="imagens/vitoria.svg" alt="Porta de saída aberta com a luz do amanhecer e uma pessoa saindo">
+      <figcaption class="legenda">SENHA 740 ACEITA // TRAVA LIBERADA // 06:12</figcaption>
+    </figure>
+
+    <p class="historia centro">
+      O teclado apita, a trava se solta e a porta de aço se abre devagar.
+      O ar frio da manhã bate no seu rosto. É a primeira coisa real que
+      você sente em horas.
+    </p>
+
+    <!-- Relatório da missão: outra TABELA, agora com 3 colunas -->
+    <section class="painel">
+      <h2>📊 Relatório da missão</h2>
+      <table class="tabela-inventario">
+        <thead>
+          <tr><th scope="col">Sala</th><th scope="col">Item</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sala de Controle</td><td><img src="imagens/item-cartao.svg" alt="">Cartão</td><td><span class="estado usado"></span></td></tr>
+          <tr><td>Laboratório</td><td><img src="imagens/item-senha.svg" alt="">Senha 740</td><td><span class="estado usado"></span></td></tr>
+          <tr><td>Sala de Energia</td><td><img src="imagens/item-bateria.svg" alt="">Bateria</td><td><span class="estado usado"></span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Revelação final escondida -->
+    <details class="painel revelacao">
+      <summary>📁 Tem uma última pasta no seu bolso... abrir?</summary>
+      <p>
+        Você não lembra de ter pegado essa pasta. Dentro, uma ficha de
+        voluntário com a <strong>sua foto</strong> e uma assinatura que
+        é, sem dúvida, a sua letra:
+      </p>
+      <blockquote class="citacao">
+        "Se você está lendo isso, o apagamento falhou. Ótimo.
+        Não confie no Dr. que assinou o protocolo. — Você, antes de esquecer."
+      </blockquote>
+      <p class="lista-dicas">Continua...? 👀</p>
+    </details>
+
+    <nav class="acoes-inicio" aria-label="Fim de jogo">
+      <a class="botao principal" href="index.html">↻ Jogar novamente</a>
+      <a class="botao discreto" href="instrucoes.html">? Ver as instruções</a>
+    </nav>
+  </main>
+
+  <footer class="rodape">
+    <ul>
+      <li>Obrigado por jogar!</li>
+      <li><a href="index.html">⌂ Início</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

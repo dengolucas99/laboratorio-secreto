@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Sala de controle com parede de monitores, uma cadeira com jaqueta e um botão vermelho">
+<defs>
+  <pattern id="grade" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#3ef0ff" stroke-opacity=".07"/></pattern>
+  <filter id="brilho" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="vinheta" cx="50%" cy="45%" r="70%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect width="800" height="450" fill="#03070d"/>
+<rect width="800" height="450" fill="url(#grade)"/>
+<!-- parede de monitores -->
+<g stroke="#2b5870" stroke-width="2" fill="#061220">
+  <rect x="140" y="40" width="150" height="90" rx="4"/><rect x="510" y="40" width="150" height="90" rx="4"/>
+  <rect x="140" y="140" width="150" height="90" rx="4"/><rect x="510" y="140" width="150" height="90" rx="4"/>
+  <rect x="300" y="40" width="200" height="190" rx="4"/>
+</g>
+<!-- mapa no telão -->
+<g stroke="#3ef0ff" fill="none" stroke-width="2" filter="url(#brilho)" opacity=".9">
+  <rect x="320" y="70" width="70" height="50"/><rect x="390" y="70" width="90" height="50"/><rect x="320" y="120" width="160" height="60"/>
+  <path d="M355 120v10 M435 120v10 M400 180v20"/>
+</g>
+<g font-family="monospace" font-size="11" fill="#3ef0ff"><text x="326" y="62">MAPA // SETOR B</text><text x="326" y="98">CONTROLE</text><text x="398" y="98">LABORAT.</text><text x="350" y="155">ENERGIA</text><text x="388" y="215" fill="#3dffa2">SAÍDA ▼</text></g>
+<circle cx="350" cy="88" r="5" fill="#ff3b5c" filter="url(#brilho)"/>
+<!-- câmeras nos monitores -->
+<g stroke="#3ef0ff" stroke-opacity=".35" fill="none">
+  <path d="M150 120 L215 70 L280 120 M520 120 L585 70 L650 120 M150 220 L215 170 L280 220 M520 220 L585 170 L650 220"/>
+</g>
+<g font-family="monospace" font-size="10" fill="#ff3b5c"><text x="148" y="54">● CAM 01</text><text x="518" y="54">● CAM 02</text><text x="148" y="154">● CAM 03</text><text x="518" y="154">SEM SINAL</text></g>
+<!-- mesa -->
+<path d="M60 300 L740 300 L780 360 L20 360 Z" fill="#0e1e2c" stroke="#2b5870" stroke-width="2"/>
+<rect x="20" y="360" width="760" height="20" fill="#0a1620"/>
+<!-- teclados -->
+<g fill="#13283a" stroke="#2b5870"><rect x="290" y="312" width="110" height="22" rx="3"/><rect x="420" y="312" width="80" height="22" rx="3"/></g>
+<!-- cadeira com jaqueta -->
+<g>
+  <rect x="120" y="230" width="100" height="120" rx="14" fill="#0b1824" stroke="#2b5870" stroke-width="2"/>
+  <path d="M128 238 L212 238 L222 330 L190 330 L185 280 L155 280 L150 330 L118 330 Z" fill="#7a4a12" stroke="#ffb020" stroke-width="2"/>
+  <path d="M170 238 L170 330" stroke="#ffb020" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="180" y="262" width="22" height="12" rx="2" fill="#ff3b5c" opacity=".9"/>
+  <path d="M150 350 L150 400 M190 350 L190 400 M130 400 L210 400" stroke="#2b5870" stroke-width="4"/>
+</g>
+<!-- botão de lockdown com tampa -->
+<g>
+  <rect x="590" y="270" width="90" height="40" rx="6" fill="#1a0c12" stroke="#ff3b5c"/>
+  <circle cx="635" cy="290" r="14" fill="#ff3b5c" filter="url(#brilho)"/>
+  <path d="M600 270 L615 236 L655 236 L670 270" fill="#ff3b5c" fill-opacity=".12" stroke="#ff8a9e"/>
+  <text x="603" y="328" font-family="monospace" font-size="11" fill="#ff3b5c">LOCKDOWN</text>
+</g>
+<!-- caneca -->
+<rect x="520" y="306" width="22" height="24" rx="3" fill="#20384b"/>
+<rect width="800" height="450" fill="url(#vinheta)"/>
+</svg>

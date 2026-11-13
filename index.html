@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 1 — INÍCIO
+  ---------------------------------------------------------------------
+  Esta é a primeira página que o jogador vê. Ela tem:
+    - o título do jogo (com efeito "glitch")
+    - uma introdução da história
+    - os botões "Iniciar missão" e "Como jogar"
+
+  Dica: os comentários desta página explicam o BÁSICO do HTML.
+  Nas outras páginas, os comentários explicam só o que é novo.
+  =====================================================================
+-->
+
+<!-- lang="pt-BR" avisa o navegador (e o tradutor) que o texto está em português -->
+<html lang="pt-BR">
+
+<!-- O <head> é a "parte de trás" da página: configurações que não aparecem na tela -->
+<head>
+  <!-- UTF-8 permite usar acentos (ã, ç, é) sem virar símbolos estranhos -->
+  <meta charset="UTF-8">
+
+  <!-- ESSENCIAL para o celular: diz para a página usar a largura real da tela.
+       Sem isso, o celular mostra a versão de computador "encolhida". -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Texto que aparece na aba do navegador -->
+  <title>Laboratório Secreto | Experimento 047</title>
+
+  <!-- Ícone da aba (favicon) -->
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+
+  <!-- Os 4 arquivos de estilo. A ORDEM importa: o que vem depois
+       pode sobrescrever o que veio antes. -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+
+<!-- O <body> é tudo o que aparece na tela -->
+<body class="inicio">
+
+  <!-- <main> = conteúdo principal da página. Usar tags com SIGNIFICADO
+       (main, header, nav, section...) em vez de só <div> se chama
+       "HTML semântico". Fica mais organizado e ajuda na acessibilidade. -->
+  <main class="tela hero">
+
+    <p class="sobretitulo">Arquivo classificado • Nível 047</p>
+
+    <!-- O título usa a classe "glitch". O atributo data-texto guarda uma
+         cópia do texto, que o CSS usa para criar o efeito (veja efeitos.css). -->
+    <h1 class="titulo-jogo">
+      <span class="glitch" data-texto="LABORATÓRIO">LABORATÓRIO</span>
+      <span class="glitch destaque" data-texto="SECRETO">SECRETO</span>
+    </h1>
+
+    <!-- Efeito "digitando". A variável --letras diz quantas letras o
+         texto tem, para a animação saber quantos passos dar. -->
+    <p class="terminal">
+      <span class="digitando" style="--letras: 27">&gt; Experimento 047 acordou...</span>
+    </p>
+
+    <!-- <figure> agrupa uma imagem com sua legenda (<figcaption>).
+         O "alt" descreve a imagem para quem não consegue vê-la. -->
+    <figure class="cena-visual">
+      <img src="imagens/capsula.svg" alt="Cápsula experimental com uma silhueta humana dentro, cercada por um anel de luz">
+      <figcaption class="legenda">CÁPSULA 047 // SUJEITO: DESCONHECIDO // MEMÓRIA: 12%</figcaption>
+    </figure>
+
+    <!-- Introdução da história -->
+    <section class="painel intro">
+      <h2>Você acordou dentro de uma cápsula.</h2>
+      <p class="historia">
+        Os alarmes estão tocando, as portas estão trancadas e você não
+        lembra do próprio nome. Uma voz automática repete:
+        <strong>"Contenção em 60 minutos."</strong>
+      </p>
+      <p class="historia">Para sair, você vai precisar de três coisas:</p>
+
+      <!-- <ul> = lista NÃO ordenada (com bolinhas).
+           Requisito do professor: "listas de recursos disponíveis". -->
+      <ul class="lista-itens">
+        <li><img src="imagens/item-cartao.svg" alt=""> Um <strong>cartão de acesso</strong></li>
+        <li><img src="imagens/item-senha.svg" alt=""> A <strong>senha</strong> da porta</li>
+        <li><img src="imagens/item-bateria.svg" alt=""> Uma <strong>bateria</strong> para ligar o painel</li>
+      </ul>
+    </section>
+
+    <!-- <nav> = grupo de links de navegação -->
+    <nav class="acoes-inicio" aria-label="Começar o jogo">
+      <!-- <a href="..."> é um link. Cada página do jogo é um arquivo .html
+           diferente, e os links levam de uma "cena" para outra. -->
+      <a class="botao principal" href="sala-controle.html">▶ Iniciar missão</a>
+      <a class="botao" href="instrucoes.html"><span class="icone">?</span> Como jogar</a>
+    </nav>
+
+  </main>
+
+  <footer class="rodape">
+    <ul>
+      <li>Projeto de Linguagem e Técnicas de Programação</li>
+      <li>Feito só com HTML e CSS — zero JavaScript</li>
+    </ul>
+  </footer>
+
+</body>
+</html>

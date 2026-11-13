@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA DE INSTRUÇÕES
+  ---------------------------------------------------------------------
+  Explica as regras, o objetivo e como navegar.
+  Aqui usamos LISTA ORDENADA (<ol>), LISTA NÃO ORDENADA (<ul>)
+  e uma TABELA (<table>) de legenda dos símbolos.
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Como jogar | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+<body class="instrucoes">
+
+  <header class="hud">
+    <a class="logo" href="index.html">LAB<span>047</span></a>
+    <span class="status">● MANUAL DO SISTEMA</span>
+  </header>
+
+  <main class="tela">
+    <p class="sobretitulo">Manual de sobrevivência</p>
+    <h1>Como jogar</h1>
+
+    <!-- Grid de 2 colunas (vira 1 coluna no celular) -->
+    <div class="grade-instrucoes">
+
+      <section class="painel">
+        <h2>🎯 Objetivo</h2>
+        <p>Fugir do laboratório antes da contenção. Para abrir a porta de saída você precisa de:</p>
+        <ul class="lista-dicas">
+          <li>o <strong>cartão de acesso</strong> (para passar no leitor);</li>
+          <li>a <strong>bateria</strong> (o painel da porta está sem energia);</li>
+          <li>a <strong>senha</strong> (para digitar no teclado).</li>
+        </ul>
+      </section>
+
+      <section class="painel">
+        <!-- <ol> = lista ORDENADA: o navegador numera sozinho (1, 2, 3...) -->
+        <h2>🕹️ Passo a passo</h2>
+        <ol class="passos">
+          <li>Clique nos <strong>pontos piscando</strong> da imagem (ou nos botões abaixo dela) para investigar.</li>
+          <li>Cuidado: algumas opções são <strong>armadilhas</strong>, e todas parecem iguais antes do clique.</li>
+          <li>Leia com atenção: as pistas estão nos textos e nos documentos.</li>
+          <li>Achou um item? Clique em <strong>Pegar</strong>. Ele vai para o inventário.</li>
+          <li>Com o item certo, a porta da próxima sala <strong>destranca</strong>.</li>
+          <li>Na saída, use os itens na ordem certa e digite a senha.</li>
+        </ol>
+      </section>
+
+      <section class="painel largura-total">
+        <h2>🔎 Legenda</h2>
+        <!-- TABELA: <thead> é o cabeçalho, <tbody> é o corpo.
+             <tr> = linha | <th> = célula de título | <td> = célula comum -->
+        <table class="tabela-inventario">
+          <caption>O que cada símbolo significa no jogo</caption>
+          <thead>
+            <tr><th scope="col">Símbolo</th><th scope="col">Significado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="ponto-demo"></span></td><td>Ponto clicável. Pode ser uma pista... ou uma armadilha!</td></tr>
+            <tr><td>🔒</td><td>Porta trancada: falta algum item.</td></tr>
+            <tr><td><span class="estado tem"></span></td><td>Item guardado na sua mochila.</td></tr>
+            <tr><td><span class="estado falta"></span></td><td>Item que você ainda não encontrou.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="painel aviso largura-total">
+        <h2>⚠️ Regras</h2>
+        <ul class="lista-dicas">
+          <li>Cada sala tem pelo menos <strong>duas armadilhas</strong>.</li>
+          <li>Escolha errada = <strong>game over</strong>, e o jogo recomeça do <strong>início</strong>.</li>
+          <li>Leia tudo com atenção: as pistas avisam quais são os perigos.</li>
+          <li>Use o menu no rodapé para voltar ao início ou reiniciar a qualquer momento.</li>
+          <li>No celular, os pontos da imagem aparecem sem nome. Use os botões da lista.</li>
+        </ul>
+      </section>
+    </div>
+
+    <nav class="acoes-inicio" aria-label="Começar">
+      <a class="botao principal" href="sala-controle.html">▶ Entendi, iniciar missão</a>
+      <a class="botao discreto" href="index.html">← Voltar ao início</a>
+    </nav>
+  </main>
+
+  <footer class="rodape">
+    <nav aria-label="Menu do jogo">
+      <ul>
+        <li><a href="index.html">⌂ Início</a></li>
+        <li><a href="sala-controle.html">▶ Jogar</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>

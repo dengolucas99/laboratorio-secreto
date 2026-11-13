@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Tela vermelha de alerta com o símbolo de perigo e a palavra LOCKDOWN">
+<defs>
+  <pattern id="grade" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#3ef0ff" stroke-opacity=".07"/></pattern>
+  <filter id="brilho" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="vinheta" cx="50%" cy="45%" r="70%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".75"/></radialGradient>
+</defs>
+<rect width="800" height="450" fill="#0d0205"/>
+<rect width="800" height="450" fill="url(#grade)"/>
+<!-- grades fechando -->
+<g stroke="#3a0a14" stroke-width="10"><path d="M60 0 V450 M140 0 V450 M220 0 V450 M580 0 V450 M660 0 V450 M740 0 V450"/></g>
+<!-- triângulo -->
+<path d="M400 70 L520 280 L280 280 Z" fill="none" stroke="#ff3b5c" stroke-width="8" stroke-linejoin="round" filter="url(#brilho)"/>
+<rect x="392" y="130" width="16" height="90" rx="6" fill="#ff3b5c"/>
+<circle cx="400" cy="248" r="10" fill="#ff3b5c"/>
+<text x="400" y="345" text-anchor="middle" font-family="monospace" font-size="44" font-weight="bold" fill="#ff3b5c" letter-spacing="8" filter="url(#brilho)">LOCKDOWN</text>
+<text x="400" y="380" text-anchor="middle" font-family="monospace" font-size="14" fill="#ff8a9e" letter-spacing="3">PROTOCOLO DE CONTENÇÃO ATIVADO</text>
+<rect width="800" height="450" fill="url(#vinheta)"/>
+</svg>

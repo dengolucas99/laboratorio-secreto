@@ -1,0 +1,238 @@
+/* =====================================================================
+   EFEITOS.CSS — Animações e transições
+   ---------------------------------------------------------------------
+   DIFERENÇA IMPORTANTE:
+   - TRANSITION: muda suavemente de um estado para outro quando algo
+     acontece (ex.: passar o mouse). Fica em componentes.css.
+   - ANIMATION:  uma sequência que roda sozinha. Ela é desenhada com
+     @keyframes, dizendo como o elemento está em cada momento:
+       from (0%)  -> início
+       50%        -> metade
+       to (100%)  -> fim
+   Aqui ficam todos os @keyframes do jogo.
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1. TRANSIÇÃO ENTRE PÁGINAS
+   Toda vez que uma página abre, o conteúdo entra subindo e
+   aparecendo, como se o sistema estivesse "carregando a sala".
+   --------------------------------------------------------------------- */
+@keyframes entrar-tela {
+  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+.tela {
+  animation: entrar-tela .6s ease-out;
+}
+
+/* Bônus: navegadores novos (Chrome 126+, Safari 18.2+) fazem uma
+   transição suave ENTRE páginas com esta única linha.
+   Navegadores antigos simplesmente ignoram. */
+@view-transition {
+  navigation: auto;
+}
+
+
+/* ---------------------------------------------------------------------
+   2. LINHAS DE MONITOR ANTIGO (scanlines)
+   body::after cria um elemento "fantasma" que cobre a tela toda.
+   O degradê repetido desenha linhas finas, como numa TV de tubo.
+   pointer-events: none = os cliques passam através dele.
+   --------------------------------------------------------------------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, .025) 0 1px,
+    transparent 1px 3px
+  );
+  animation: tremeluzir 6s infinite;
+}
+
+@keyframes tremeluzir {
+  0%, 100% { opacity: .6; }
+  48%      { opacity: .6; }
+  50%      { opacity: .25; }   /* uma "piscada" rápida da tela */
+  52%      { opacity: .6; }
+}
+
+
+/* ---------------------------------------------------------------------
+   3. EFEITOS DE INTERFACE
+   --------------------------------------------------------------------- */
+
+/* Resultado ou janela aparecendo */
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Tremida de perigo (move para os lados) */
+@keyframes tremer {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-5px); }
+  80%      { transform: translateX(5px); }
+}
+
+/* Bolinha do hotspot pulsando */
+@keyframes pulsar-ponto {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 0 0 color-mix(in srgb, var(--destaque) 60%, transparent); }
+  50%      { transform: scale(1.15); box-shadow: 0 0 0 10px transparent; }
+}
+
+/* Texto piscando (status de alerta) */
+@keyframes piscar {
+  50% { opacity: .35; }
+}
+.status { animation: piscar 1.6s steps(2) infinite; }  /* steps(2) = pisca "seco", sem suavizar */
+
+
+/* ---------------------------------------------------------------------
+   4. EFEITOS DE ITEM COLETADO
+   --------------------------------------------------------------------- */
+
+/* Botão "Pegar" dá um pulo quando é clicado */
+@keyframes coletado {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* A imagem do item encolhe, gira e sobe, como se fosse para a mochila.
+   "forwards" (no jogo.css) faz o item FICAR no último quadro (sumido). */
+@keyframes ir-para-mochila {
+  0%   { transform: scale(1) rotate(0);        opacity: 1; }
+  30%  { transform: scale(1.2) rotate(-8deg);  opacity: 1; }
+  100% { transform: scale(.2) rotate(25deg) translateY(-120px); opacity: 0; }
+}
+
+/* Linha da tabela piscando em verde */
+@keyframes linha-brilha {
+  0%   { background: color-mix(in srgb, var(--verde) 35%, transparent); }
+  100% { background: transparent; }
+}
+
+/* Contorno brilhando (porta destrancada) */
+@keyframes brilho-destaque {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50%      { box-shadow: 0 0 28px 4px color-mix(in srgb, var(--destaque) 55%, transparent); }
+}
+
+/* Documento caindo na mesa */
+@keyframes papel-cai {
+  from { transform: rotate(-12deg) translateY(-60px); opacity: 0; }
+  to   { transform: rotate(-1deg) translateY(0);      opacity: 1; }
+}
+
+
+/* ---------------------------------------------------------------------
+   5. EFEITO GLITCH NO TÍTULO (página inicial)
+   O título tem um atributo data-texto com o mesmo texto.
+   ::before e ::after copiam esse texto (com attr()) e ficam por cima,
+   um em ciano e outro em vermelho, "tremendo" em posições diferentes.
+   O clip-path recorta só uma faixa de cada cópia.
+   --------------------------------------------------------------------- */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-texto);   /* pega o texto do atributo data-texto */
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: var(--ciano);
+  animation: glitch-a 3s infinite steps(1);
+}
+
+.glitch::after {
+  color: var(--vermelho);
+  animation: glitch-b 3s infinite steps(1);
+}
+
+@keyframes glitch-a {
+  0%, 88%, 100% { clip-path: inset(100% 0 0 0); transform: none; }  /* escondido quase sempre */
+  90% { clip-path: inset(10% 0 60% 0); transform: translate(-4px, 0); }
+  94% { clip-path: inset(55% 0 20% 0); transform: translate(4px, 0); }
+}
+
+@keyframes glitch-b {
+  0%, 89%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
+  91% { clip-path: inset(70% 0 5% 0);  transform: translate(5px, 0); }
+  95% { clip-path: inset(20% 0 50% 0); transform: translate(-3px, 0); }
+}
+
+
+/* ---------------------------------------------------------------------
+   6. EFEITO "DIGITANDO" (texto do terminal)
+   A largura vai de 0 até o tamanho total do texto, em passos.
+   Cada passo revela uma letra, como se alguém estivesse digitando.
+   --------------------------------------------------------------------- */
+.digitando {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--destaque);   /* o "cursor" */
+  width: 0;
+  animation:
+    digitar 2.4s steps(var(--letras, 30)) .6s forwards,
+    cursor .8s steps(1) infinite;
+}
+
+@keyframes digitar {
+  to { width: calc(var(--letras, 30) * 1ch); }
+}
+
+@keyframes cursor {
+  50% { border-color: transparent; }
+}
+
+
+/* ---------------------------------------------------------------------
+   7. ALERTA VERMELHO (game over)
+   Uma luz vermelha "gira" pela tela, como sirene.
+   --------------------------------------------------------------------- */
+.sirene {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 59, 92, .35), transparent 55%);
+  animation: sirene 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes sirene {
+  from { opacity: .3; }
+  to   { opacity: 1; }
+}
+
+
+/* ---------------------------------------------------------------------
+   8. ACESSIBILIDADE: MENOS MOVIMENTO
+   Algumas pessoas sentem tontura com animações. Elas podem ativar
+   "reduzir movimento" no celular/computador. Esta media query
+   respeita essa escolha e desliga as animações.
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

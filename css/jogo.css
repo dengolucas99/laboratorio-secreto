@@ -1,0 +1,184 @@
+/* =====================================================================
+   JOGO.CSS — A "lógica" do jogo, feita SÓ com CSS
+   ---------------------------------------------------------------------
+   O professor proibiu JavaScript. Então como o jogo "lembra" que você
+   pegou um item, ou mostra o que tem dentro da jaqueta?
+
+   Usamos 3 truques de CSS:
+
+   TRUQUE 1 — Radio + seletor "+"  (investigar objetos)
+     Um <input type="radio"> escondido fica logo ANTES de cada resultado.
+     Quando o jogador clica no <label> ligado a ele, o radio fica
+     marcado (:checked) e o CSS mostra o resultado que vem logo depois.
+     Como todos os radios têm o mesmo "name", só UM fica marcado por vez.
+
+   TRUQUE 2 — Checkbox + :has()  (pegar e usar itens)
+     O botão "Pegar" é um <label> de um checkbox escondido.
+     O seletor :has() pergunta: "a página TEM um checkbox marcado?"
+     Se tiver, atualizamos o inventário e destrancamos a porta.
+
+   TRUQUE 3 — :target  (abrir documentos e escolher o game over)
+     Quando a URL termina com #algo, o elemento com id="algo" vira
+     o ":target". Usamos isso para abrir janelas (modais) e para a
+     página de game over mostrar o motivo certo da derrota.
+
+   E entre uma página e outra? O jogo usa as PRÓPRIAS PÁGINAS como
+   memória: você só consegue sair da sala de controle se pegou o
+   cartão. Então, se está no laboratório, com certeza tem o cartão!
+   ===================================================================== */
+
+
+/* =====================================================================
+   TRUQUE 1 — Investigar objetos
+   ===================================================================== */
+
+/* Leitura do seletor: "um .resultado que vem LOGO DEPOIS (+)
+   de um radio .investigar que está marcado (:checked)" */
+.investigar:checked + .resultado {
+  display: block;
+  animation: aparecer .35s ease-out;   /* animação definida no efeitos.css */
+}
+
+/* Repare: só as escolhas BOAS têm resultado nesta página.
+   As armadilhas são links (<a>) que vão direto para o game over,
+   mas têm a MESMA aparência dos botões bons. */
+
+
+/* =====================================================================
+   TRUQUE 2 — Pegar itens
+   ===================================================================== */
+
+/* ---- 2a. O botão "Pegar" muda depois do clique ----
+   Dentro do label existem dois textos: .antes e .depois.
+   No começo, só o .antes aparece. */
+.pegar .depois { display: none; }
+
+.coletar:checked + .pegar {
+  background: var(--verde);
+  pointer-events: none;      /* não dá mais para clicar */
+  animation: coletado .5s ease-out;
+}
+.coletar:checked + .pegar .antes  { display: none; }
+.coletar:checked + .pegar .depois { display: inline; }
+
+/* O item "voa" para a mochila: diminui e some */
+.item-encontrado:has(.coletar:checked) img {
+  animation: ir-para-mochila .7s ease-in forwards;
+}
+
+
+/* ---- 2b. Atualizar a tabela de inventário ----
+   Leitura: "se a .tela TEM (:has) o checkbox #pegar-cartao marcado,
+   então o estado do cartão passa a mostrar 'na mochila'". */
+.tela:has(#pegar-cartao:checked)  .estado-cartao::after,
+.tela:has(#pegar-senha:checked)   .estado-senha::after,
+.tela:has(#pegar-bateria:checked) .estado-bateria::after {
+  content: "✓ na mochila";
+  color: var(--verde);
+  border-color: color-mix(in srgb, var(--verde) 40%, transparent);
+}
+
+/* A linha do item novo dá uma "piscada" verde ao ser coletada */
+.tela:has(#pegar-cartao:checked)  .linha-cartao,
+.tela:has(#pegar-senha:checked)   .linha-senha,
+.tela:has(#pegar-bateria:checked) .linha-bateria {
+  animation: linha-brilha 1.2s ease-out;
+}
+
+/* Na fuga, os itens são USADOS na porta */
+.tela:has(#usar-cartao:checked)  .estado-cartao::after,
+.tela:has(#usar-bateria:checked) .estado-bateria::after {
+  content: "● usado";
+  color: var(--texto-fraco);
+  border-color: transparent;
+}
+
+
+/* ---- 2c. Destrancar a saída ----
+   Este seletor é o mais "nerd" do projeto. Leia de dentro pra fora:
+
+     .coletar:not(:checked)              -> um item que AINDA NÃO foi pego
+     :has(.coletar:not(:checked))        -> a tela TEM algum item faltando
+     :not(:has(...))                     -> a tela NÃO TEM nenhum faltando
+
+   Ou seja: "quando TODOS os itens da sala foram pegos".
+   Funciona para salas com 1 item ou com vários, sem mudar nada! */
+.tela:not(:has(.coletar:not(:checked))) .saida-trancada {
+  display: none;
+}
+.tela:not(:has(.coletar:not(:checked))) .saida-liberada {
+  display: flex;
+  animation: aparecer .4s ease-out, brilho-destaque 1.6s ease-in-out 2;
+}
+
+
+/* =====================================================================
+   PORTA DA FUGA — uma sequência de passos
+   1º encaixar a bateria -> 2º passar o cartão -> 3º digitar a senha
+   Cada passo só aparece depois do anterior.
+   ===================================================================== */
+.passo-cartao,
+.teclado { display: none; }
+
+/* Bateria encaixada -> some a opção errada ("passar o cartão" antes
+   da hora), aparece o passo do cartão e o LED acende */
+.tela:has(#usar-bateria:checked) .escolhas-passo a.pegar {
+  display: none;
+}
+
+.tela:has(#usar-bateria:checked) .passo-cartao {
+  display: block;
+  animation: aparecer .4s ease-out;
+}
+.tela:has(#usar-bateria:checked) .led {
+  background: var(--ambar);
+  box-shadow: 0 0 14px var(--ambar);
+}
+
+/* Bateria E cartão -> aparece o teclado e o LED fica verde.
+   Dois :has() seguidos funcionam como um "E" (AND) da programação. */
+.tela:has(#usar-bateria:checked):has(#usar-cartao:checked) .teclado {
+  display: grid;
+  animation: aparecer .4s ease-out;
+}
+.tela:has(#usar-bateria:checked):has(#usar-cartao:checked) .led {
+  background: var(--verde);
+  box-shadow: 0 0 18px var(--verde);
+}
+
+/* Enquanto o teclado não aparece, mostramos o que falta */
+.tela:has(#usar-bateria:checked):has(#usar-cartao:checked) .falta-algo {
+  display: none;
+}
+
+
+/* =====================================================================
+   TRUQUE 3 — :target
+   ===================================================================== */
+
+/* ---- 3a. Janela de documento (modal) ----
+   O link <a href="#doc-prancheta"> muda a URL para ...#doc-prancheta
+   e o elemento com esse id passa a ser o :target -> aparece! */
+.modal:target {
+  display: grid;
+  animation: aparecer .3s ease-out;
+}
+.modal:target .documento {
+  animation: papel-cai .45s ease-out;
+}
+
+/* ---- 3b. Motivo do game over ----
+   Todos os links de derrota vão para a MESMA página, mas cada um
+   com um #motivo diferente: game-over.html#choque, #lockdown...
+   Assim reaproveitamos uma página só para todas as derrotas. */
+.causa { display: none; }
+
+.causa:target {
+  display: block;
+  animation: aparecer .5s ease-out, tremer .4s .5s;   /* aparece e treme */
+}
+
+/* Se ninguém for o :target (URL sem #), mostra a mensagem padrão */
+.causas:not(:has(.causa:target)) .causa-padrao {
+  display: block;
+}

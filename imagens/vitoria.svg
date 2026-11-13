@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Porta de saída aberta com a luz do amanhecer e uma pessoa saindo">
+<defs>
+  <pattern id="grade" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#3ef0ff" stroke-opacity=".07"/></pattern>
+  <filter id="brilho" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="vinheta" cx="50%" cy="45%" r="70%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".75"/></radialGradient>
+  <radialGradient id="sol" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="#fff6d6"/><stop offset=".45" stop-color="#ffcf7a"/><stop offset="1" stop-color="#3dffa2" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="800" height="450" fill="#02080a"/>
+<g stroke="#3dffa2" stroke-opacity=".2" fill="none"><path d="M0 0 L250 110 M800 0 L550 110 M0 450 L250 350 M800 450 L550 350"/></g>
+<rect x="250" y="110" width="300" height="240" fill="url(#sol)"/>
+<!-- portas abertas -->
+<path d="M250 110 L200 90 L200 370 L250 350 Z M550 110 L600 90 L600 370 L550 350 Z" fill="#0e1a18" stroke="#3dffa2" stroke-opacity=".5"/>
+<!-- árvores lá fora -->
+<g fill="#2b5a3a" opacity=".55"><path d="M270 300 l25 -80 l25 80z M480 300 l22 -70 l22 70z M330 300 l15 -50 l15 50z"/></g>
+<!-- feixes de luz -->
+<g fill="#ffe7a8" opacity=".08"><path d="M300 120 L100 450 L300 450z M500 120 L700 450 L500 450z M400 120 L330 450 L470 450z"/></g>
+<!-- silhueta -->
+<g fill="#02080a"><circle cx="400" cy="262" r="12"/><path d="M386 278 Q400 270 414 278 L418 320 L410 320 L408 352 L402 352 L400 326 L398 352 L392 352 L390 320 L382 320Z"/></g>
+<text x="400" y="100" text-anchor="middle" font-family="monospace" font-size="14" fill="#3dffa2" filter="url(#brilho)">SAÍDA LIBERADA</text>
+<rect width="800" height="450" fill="url(#vinheta)"/>
+</svg>

@@ -1,0 +1,223 @@
+/* =====================================================================
+   BASE.CSS — A "fundação" do visual do jogo
+   ---------------------------------------------------------------------
+   Este arquivo cuida das coisas que valem para TODAS as páginas:
+   cores, fontes, fundo, tamanho dos textos e o layout geral.
+
+   O projeto tem 3 arquivos CSS, cada um com uma função:
+     1. base.css        -> cores, fontes, fundo e layout (este aqui)
+     2. componentes.css -> peças reutilizáveis: botões, painéis, tabela...
+     3. efeitos.css     -> animações e transições
+   Separar assim é como separar gavetas: fica fácil achar as coisas.
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1. FONTES
+   O @import busca fontes prontas no Google Fonts.
+   Se a internet cair, o navegador usa as fontes "reserva" que
+   aparecem depois da vírgula (ex.: monospace, sans-serif).
+   --------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;600;800&display=swap');
+
+
+/* ---------------------------------------------------------------------
+   2. VARIÁVEIS CSS (custom properties)
+   ---------------------------------------------------------------------
+   Variáveis são "apelidos" para valores. Em vez de escrever #3ef0ff
+   em 30 lugares, escrevemos var(--ciano). Se um dia quisermos trocar
+   a cor, mudamos SÓ AQUI e o jogo inteiro muda junto.
+   :root significa "a raiz da página", ou seja, vale para tudo.
+   --------------------------------------------------------------------- */
+:root {
+  /* Cores do fundo e dos painéis (do mais escuro ao mais claro) */
+  --fundo:        #04080e;
+  --painel:       #0a131d;
+  --painel-claro: #112130;
+  --borda:        #1f3a4d;
+
+  /* Cores do texto */
+  --texto:        #e6f1f8;
+  --texto-fraco:  #8ea4b5;
+
+  /* Cores com "significado" no jogo */
+  --ciano:   #3ef0ff;   /* informação, tecnologia      */
+  --verde:   #3dffa2;   /* sucesso, item coletado      */
+  --ambar:   #ffb020;   /* atenção                     */
+  --vermelho:#ff3b5c;   /* perigo, game over           */
+
+  /* Cor de destaque da sala atual.
+     Cada página pode trocar só ESSA variável (veja a seção 6)
+     e todos os detalhes da página mudam de cor juntos. */
+  --destaque: var(--ciano);
+
+  /* Fontes */
+  --fonte-titulo: "Chakra Petch", "Trebuchet MS", sans-serif;
+  --fonte-mono:   "IBM Plex Mono", Consolas, monospace;
+  --fonte-texto:  Inter, "Segoe UI", Arial, sans-serif;
+
+  /* Medidas que se repetem */
+  --raio: 14px;                 /* arredondamento dos cantos  */
+  --largura-max: 1100px;        /* largura máxima do conteúdo */
+}
+
+
+/* ---------------------------------------------------------------------
+   3. "RESET" BÁSICO
+   Cada navegador tem margens e tamanhos padrão um pouco diferentes.
+   Aqui deixamos tudo igual em qualquer navegador.
+   --------------------------------------------------------------------- */
+
+/* box-sizing: border-box faz a borda e o padding ficarem DENTRO da
+   largura do elemento. Sem isso, width: 100% + padding estoura a tela. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;   /* ao clicar em links com #, rola suave */
+  background-color: var(--fundo);  /* cor "reserva" caso o degradê não cubra tudo */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;         /* 100vh = 100% da altura da tela */
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  line-height: 1.6;
+
+  /* Fundo com DUAS camadas, uma em cima da outra:
+     1ª: um brilho redondo no topo (radial-gradient)
+     2ª: um degradê escuro diagonal (linear-gradient) */
+  background:
+    radial-gradient(ellipse at 50% -10%, color-mix(in srgb, var(--destaque) 22%, transparent), transparent 60%),
+    linear-gradient(160deg, #04080e, #08111b 60%, #04080e);
+  background-color: var(--fundo);
+  background-repeat: no-repeat;   /* o degradê aparece uma vez só, no topo */
+}
+
+/* Imagens nunca passam da largura de quem as contém (importante no celular) */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--ciano);
+}
+
+
+/* ---------------------------------------------------------------------
+   4. TIPOGRAFIA (títulos e textos)
+   clamp(MÍNIMO, IDEAL, MÁXIMO) faz o texto crescer com a tela,
+   mas sem ficar pequeno demais no celular nem gigante no monitor.
+   "vw" = porcentagem da largura da tela.
+   --------------------------------------------------------------------- */
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  line-height: 1.1;
+  margin: 0 0 .6em;
+  letter-spacing: .02em;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.6rem); }
+h3 { font-size: 1.1rem; }
+
+/* Pequeno texto em letras maiúsculas acima dos títulos ("SETOR 02") */
+.sobretitulo {
+  font-family: var(--fonte-mono);
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--destaque);
+  margin: 0 0 .4rem;
+}
+
+/* Texto da história da cena */
+.historia {
+  font-size: 1.08rem;
+  color: #c9d9e6;
+  max-width: 65ch;     /* "ch" = largura de um caractere. 65ch é ótimo para ler */
+}
+
+
+/* ---------------------------------------------------------------------
+   5. LAYOUT GERAL DA PÁGINA
+   --------------------------------------------------------------------- */
+
+/* Container central: ocupa a tela toda no celular,
+   mas no máximo 1100px no computador. min() escolhe o MENOR valor. */
+.tela {
+  width: min(var(--largura-max), 100% - 2rem);
+  margin: 1.5rem auto 3rem;   /* "auto" nas laterais = centraliza */
+}
+
+/* Nas páginas de sala usamos CSS GRID: uma "planilha" invisível
+   que organiza as partes da página em linhas e colunas.
+
+   grid-template-areas desenha o layout com NOMES. No computador:
+
+     | cena        | cena       |
+     | exploracao  | inventario |
+     | saidas      | saidas     |
+*/
+.layout-sala {
+  display: grid;
+  grid-template-columns: 1fr 340px;   /* 1fr = "o espaço que sobrar" */
+  grid-template-areas:
+    "cena       cena"
+    "exploracao inventario"
+    "saidas     saidas";
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Cada parte diz em qual "área" do grid ela vai morar */
+.area-cena       { grid-area: cena; }
+.area-exploracao { grid-area: exploracao; }
+.area-inventario { grid-area: inventario; }
+.area-saidas     { grid-area: saidas; }
+
+
+/* ---------------------------------------------------------------------
+   6. COR DE CADA SALA
+   A tag <body> de cada página tem uma classe com o nome da sala.
+   Aqui só trocamos a variável --destaque. Como TODO o resto usa
+   var(--destaque), a página inteira muda de "clima" com 1 linha!
+   --------------------------------------------------------------------- */
+.sala-controle { --destaque: var(--ciano); }
+.laboratorio   { --destaque: #7cff6b; }      /* verde-químico */
+.sala-energia  { --destaque: var(--ambar); }
+.fuga          { --destaque: #b28cff; }      /* roxo */
+.vitoria       { --destaque: var(--verde); }
+.game-over     { --destaque: var(--vermelho); }
+
+
+/* ---------------------------------------------------------------------
+   7. RESPONSIVIDADE (MEDIA QUERIES)
+   ---------------------------------------------------------------------
+   @media (max-width: 860px) quer dizer:
+   "aplique estas regras SÓ se a tela tiver até 860px de largura".
+   Assim o mesmo HTML se adapta a celular, tablet e computador.
+   --------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  /* No celular vira UMA coluna só, uma parte embaixo da outra.
+     Repare: o inventário sobe para logo depois da cena,
+     só mudando a ordem dos nomes. O HTML não muda nada! */
+  .layout-sala {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cena"
+      "inventario"
+      "exploracao"
+      "saidas";
+  }
+}
+
+@media (max-width: 520px) {
+  .tela { width: calc(100% - 1.2rem); margin-top: .8rem; }
+  .historia { font-size: 1rem; }
+}

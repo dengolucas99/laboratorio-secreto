@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Cápsula experimental com uma silhueta humana dentro">
+<defs>
+  <pattern id="grade" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#3ef0ff" stroke-opacity=".07"/></pattern>
+  <filter id="brilho" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="vinheta" cx="50%" cy="45%" r="70%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".75"/></radialGradient>
+  <linearGradient id="vidro" x1="0" x2="1"><stop offset="0" stop-color="#3ef0ff" stop-opacity=".08"/><stop offset=".5" stop-color="#3ef0ff" stop-opacity=".28"/><stop offset="1" stop-color="#3ef0ff" stop-opacity=".08"/></linearGradient>
+  <linearGradient id="chao" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1a26"/><stop offset="1" stop-color="#02050a"/></linearGradient>
+</defs>
+<rect width="800" height="450" fill="#03070d"/>
+<rect width="800" height="450" fill="url(#grade)"/>
+<rect y="330" width="800" height="120" fill="url(#chao)"/>
+<!-- cabos no chão -->
+<path d="M0 410 C150 380 250 420 330 370 M800 400 C650 370 560 420 470 370" stroke="#14303f" stroke-width="10" fill="none"/>
+<!-- anel de luz atrás -->
+<ellipse cx="400" cy="200" rx="170" ry="170" fill="none" stroke="#3ef0ff" stroke-width="4" opacity=".55" filter="url(#brilho)"/>
+<ellipse cx="400" cy="200" rx="150" ry="150" fill="none" stroke="#3ef0ff" stroke-width="1" opacity=".3" stroke-dasharray="6 10"/>
+<!-- base e tampa da cápsula -->
+<rect x="320" y="330" width="160" height="34" rx="8" fill="#0f2231" stroke="#2b5870"/>
+<rect x="330" y="52" width="140" height="24" rx="8" fill="#0f2231" stroke="#2b5870"/>
+<!-- vidro -->
+<rect x="340" y="74" width="120" height="258" rx="56" fill="url(#vidro)" stroke="#3ef0ff" stroke-opacity=".7" stroke-width="2"/>
+<!-- silhueta -->
+<g fill="#020b12" opacity=".92">
+  <circle cx="400" cy="128" r="20"/>
+  <path d="M372 160 Q400 146 428 160 L436 240 L424 240 L420 312 L406 312 L402 252 L398 252 L394 312 L380 312 L376 240 L364 240 Z"/>
+</g>
+<!-- bolhas -->
+<g fill="#9ff8ff" opacity=".6"><circle cx="365" cy="290" r="3"/><circle cx="440" cy="250" r="2"/><circle cx="372" cy="200" r="2.5"/><circle cx="432" cy="150" r="2"/></g>
+<!-- reflexo do vidro -->
+<path d="M356 110 Q350 200 356 300" stroke="#fff" stroke-opacity=".25" stroke-width="5" fill="none" stroke-linecap="round"/>
+<!-- LEDs da base -->
+<g filter="url(#brilho)"><circle cx="350" cy="347" r="4" fill="#ff3b5c"/><circle cx="366" cy="347" r="4" fill="#3dffa2"/></g>
+<text x="440" y="352" font-family="monospace" font-size="13" fill="#3ef0ff" opacity=".8">EXP-047</text>
+<!-- monitores laterais -->
+<g stroke="#2b5870" fill="#071420">
+  <rect x="80" y="150" width="140" height="90" rx="6"/><rect x="580" y="150" width="140" height="90" rx="6"/>
+</g>
+<polyline points="92,210 112,210 120,185 130,225 140,200 160,210 208,210" stroke="#3dffa2" stroke-width="2" fill="none" filter="url(#brilho)"/>
+<g font-family="monospace" font-size="12" fill="#3ef0ff"><text x="594" y="176">SUJEITO: 047</text><text x="594" y="196">MEMÓRIA: 12%</text><text x="594" y="216" fill="#ff3b5c">STATUS: ACORDANDO</text></g>
+<rect width="800" height="450" fill="url(#vinheta)"/>
+</svg>

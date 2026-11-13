@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 4 — SALA DE ENERGIA          Objetivo: achar a BATERIA
+  ---------------------------------------------------------------------
+  Mesma estrutura das salas anteriores.
+  A pegadinha: tem uma bateria ENORME e fácil no gerador, mas ela
+  dá choque. A certa está no drone, e o quadro de força dá a dica.
+  (O documento da prancheta, no laboratório, também avisava!)
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sala de Energia | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+<body class="sala-energia">
+
+  <header class="hud">
+    <a class="logo" href="index.html">LAB<span>047</span></a>
+    <ol class="progresso" aria-label="Progresso da missão">
+      <li class="feito">Início</li>
+      <li class="feito">Controle</li>
+      <li class="feito">Laboratório</li>
+      <li aria-current="step">Energia</li>
+      <li>Fuga</li>
+      <li>Final</li>
+    </ol>
+    <span class="status">● SOBRECARGA</span>
+  </header>
+
+  <main class="tela layout-sala">
+
+    <section class="area-cena">
+      <p class="sobretitulo">Setor 03 • Subsolo</p>
+      <h1>Sala de Energia</h1>
+      <p class="historia">
+        O ar cheira a queimado. Um gerador gigante solta faíscas, um quadro
+        de força pisca em amarelo e, no canto, um drone de manutenção está
+        largado no chão, desligado.
+      </p>
+
+      <div class="cena-visual">
+        <img src="imagens/sala-energia.svg" alt="Sala de energia com um gerador soltando faíscas, um quadro de força e um drone desligado no chão">
+        <a class="hotspot" href="game-over.html#choque" style="--x: 22%; --y: 47%"><span>Gerador</span></a>
+        <a class="hotspot" href="game-over.html#cabos"  style="--x: 88%; --y: 26%"><span>Cabos</span></a>
+        <label class="hotspot" for="ver-quadro"  style="--x: 55%; --y: 34%"><span>Quadro de força</span></label>
+        <label class="hotspot" for="ver-drone"   style="--x: 78%; --y: 64%"><span>Drone</span></label>
+        <p class="legenda">TENSÃO: 380V // TEMPERATURA: 71°C // RISCO ELÉTRICO</p>
+      </div>
+    </section>
+
+    <section class="area-exploracao painel" id="investigar">
+      <h2>O que você quer investigar?</h2>
+      <!-- Opções com a mesma cor. Armadilhas: gerador e cabos. -->
+      <ul class="opcoes">
+        <li><a class="botao" href="game-over.html#choque"><span class="icone">01</span> Pegar a bateria do gerador</a></li>
+        <li><label class="botao" for="ver-quadro"><span class="icone">02</span> Ler o quadro de força</label></li>
+        <li><label class="botao" for="ver-drone"><span class="icone">03</span> Mexer no drone</label></li>
+        <li><a class="botao" href="game-over.html#cabos"><span class="icone">04</span> Puxar os cabos da parede</a></li>
+      </ul>
+
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-quadro">
+      <article class="resultado painel">
+        <h3>🔌 Quadro de força</h3>
+        <pre class="terminal-tela">PORTA DE SAÍDA ..... <span class="alerta">SEM ENERGIA</span>
+SOLUÇÃO ............ BATERIA PORTÁTIL 12V
+GERADOR ............ 380V (NÃO TOCAR - LIGADO)
+CABOS DA PAREDE .... ALTA TENSÃO</pre>
+        <p>Uma bateria pequena, de 12V. Onde tem uma dessas por aqui?</p>
+      </article>
+
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-drone">
+      <article class="resultado painel">
+        <h3>🛸 Drone de manutenção</h3>
+        <p>Você vira o drone e abre a tampa de baixo. Lá dentro, uma bateria amarela.</p>
+        <div class="item-encontrado">
+          <img src="imagens/item-bateria.svg" alt="Bateria portátil 12V">
+          <div>
+            <strong>BATERIA PORTÁTIL — 12V</strong>
+            <p>Exatamente o que o quadro de força pediu.</p>
+            <input class="coletar oculto" type="checkbox" id="pegar-bateria">
+            <label class="pegar" for="pegar-bateria">
+              <span class="antes">✋ Pegar a bateria</span>
+              <span class="depois">✓ Guardada na mochila</span>
+            </label>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <aside class="area-inventario painel inventario">
+      <h2>🎒 Inventário</h2>
+      <table class="tabela-inventario">
+        <caption>Itens necessários para a fuga</caption>
+        <thead>
+          <tr><th scope="col">Item</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr class="linha-cartao">
+            <td><img src="imagens/item-cartao.svg" alt="">Cartão de acesso</td>
+            <td><span class="estado tem estado-cartao"></span></td>
+          </tr>
+          <tr class="linha-senha">
+            <td><img src="imagens/item-senha.svg" alt="">Senha da saída</td>
+            <td><span class="estado tem estado-senha"></span></td>
+          </tr>
+          <tr class="linha-bateria">
+            <td><img src="imagens/item-bateria.svg" alt="">Bateria 12V</td>
+            <td><span class="estado falta estado-bateria"></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="lista-dicas">
+        <li>Lembra do que a prancheta dizia sobre o gerador?</li>
+        <li>Falta só um item!</li>
+      </ul>
+    </aside>
+
+    <nav class="area-saidas saidas" aria-label="Para onde ir">
+      <div class="saida-trancada">🔒 A porta de saída está sem energia. Ache uma bateria.</div>
+      <a class="botao principal saida-liberada" href="fuga.html">🔓 Ir para a porta de saída →</a>
+      <a class="botao discreto" href="laboratorio.html">← Voltar ao Laboratório</a>
+    </nav>
+  </main>
+
+  <footer class="rodape">
+    <nav aria-label="Menu do jogo">
+      <ul>
+        <li><a href="index.html">⌂ Início</a></li>
+        <li><a href="instrucoes.html">? Como jogar</a></li>
+        <li><a href="index.html">↻ Reiniciar jogo</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>

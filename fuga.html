@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 5 — FUGA          Objetivo: USAR os itens e abrir a porta
+  ---------------------------------------------------------------------
+  Aqui o jogador usa tudo o que coletou, numa SEQUÊNCIA:
+     1º encaixar a bateria  -> o painel liga
+     2º passar o cartão     -> o teclado aparece
+     3º digitar a senha     -> vitória ou derrota
+  Cada passo só aparece depois do anterior (jogo.css, "PORTA DA FUGA").
+  O teclado tem as 6 combinações possíveis de 0, 4 e 7:
+  só quem juntou as pistas sabe que a certa é 740.
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuga | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+<body class="fuga">
+
+  <header class="hud">
+    <a class="logo" href="index.html">LAB<span>047</span></a>
+    <ol class="progresso" aria-label="Progresso da missão">
+      <li class="feito">Início</li>
+      <li class="feito">Controle</li>
+      <li class="feito">Laboratório</li>
+      <li class="feito">Energia</li>
+      <li aria-current="step">Fuga</li>
+      <li>Final</li>
+    </ol>
+    <span class="status">● CONTENÇÃO EM 05:00</span>
+  </header>
+
+  <main class="tela layout-sala">
+
+    <section class="area-cena">
+      <p class="sobretitulo">Setor 04 • Saída de emergência</p>
+      <h1>A Porta de Saída</h1>
+      <p class="historia">
+        No fim do corredor, a placa <strong>SAÍDA</strong> brilha em verde.
+        A porta é de aço maciço. Ao lado, um painel apagado com um encaixe
+        de bateria, um leitor de cartão e um teclado numérico.
+      </p>
+
+      <div class="cena-visual">
+        <img src="imagens/fuga.svg" alt="Corredor que termina numa grande porta de saída trancada, com um painel de acesso ao lado">
+        <!-- Hotspots também podem ser LINKS (<a>), não só labels.
+             Este leva direto ao painel, na mesma página (#painel). -->
+        <a class="hotspot" href="#painel" style="--x: 81%; --y: 56%"><span>Painel de acesso</span></a>
+        <!-- Mesma cor para todos os pontos, inclusive a armadilha -->
+        <a class="hotspot" href="game-over.html#forca" style="--x: 50%; --y: 55%"><span>Forçar a porta</span></a>
+        <p class="legenda">SAÍDA 01 // TRAVA MAGNÉTICA ATIVA</p>
+      </div>
+    </section>
+
+    <section class="area-exploracao painel" id="painel">
+      <h2>
+        <!-- O LED muda de cor conforme o progresso (vermelho > âmbar > verde) -->
+        <span class="led" aria-hidden="true"></span>
+        Painel de acesso
+      </h2>
+
+      <!-- PASSO 1: a ORDEM importa! Duas opções com a mesma aparência:
+           - encaixar a bateria (certo): checkbox + label, igual ao "pegar item"
+           - passar o cartão primeiro (errado): link para o game over -->
+      <div class="passo">
+        <p class="numero-passo">PASSO 1</p>
+        <p>O painel tem um encaixe de bateria e um leitor de cartão. Por onde começar?</p>
+        <div class="escolhas-passo">
+          <a class="pegar" href="game-over.html#ordem"><span class="antes">💳 Passar o cartão</span></a>
+          <input class="coletar oculto" type="checkbox" id="usar-bateria">
+          <label class="pegar" for="usar-bateria">
+            <span class="antes">🔋 Encaixar a bateria</span>
+            <span class="depois">✓ Painel ligado</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- PASSO 2: cartão (só aparece depois da bateria) -->
+      <div class="passo passo-cartao">
+        <p class="numero-passo">PASSO 2</p>
+        <p>A tela acendeu: <em>"APROXIME O CARTÃO DE ACESSO"</em>.</p>
+        <input class="coletar oculto" type="checkbox" id="usar-cartao">
+        <label class="pegar" for="usar-cartao">
+          <span class="antes">💳 Passar o cartão</span>
+          <span class="depois">✓ Cartão aceito</span>
+        </label>
+      </div>
+
+      <!-- Mensagem que some quando os dois passos estão feitos -->
+      <p class="falta-algo">🔒 O teclado continua apagado...</p>
+
+      <!-- PASSO 3: teclado (só aparece com bateria E cartão).
+           Cada botão é um link: o certo vai para a vitória,
+           os errados vão para o game over com o motivo #senha. -->
+      <div class="passo teclado">
+        <p class="numero-passo">PASSO 3 — DIGITE A SENHA</p>
+        <div class="visor">_ _ _</div>
+        <div class="teclas">
+          <a class="tecla" href="game-over.html#senha">047</a>
+          <a class="tecla" href="game-over.html#senha">074</a>
+          <a class="tecla" href="game-over.html#senha">407</a>
+          <a class="tecla" href="game-over.html#senha">470</a>
+          <a class="tecla" href="game-over.html#senha">704</a>
+          <a class="tecla" href="vitoria.html">740</a>
+        </div>
+        <p class="lista-dicas">Lembre-se da regra que você anotou no laboratório.</p>
+      </div>
+    </section>
+
+    <aside class="area-inventario painel inventario">
+      <h2>🎒 Inventário</h2>
+      <table class="tabela-inventario">
+        <caption>Tudo pronto. Agora é usar!</caption>
+        <thead>
+          <tr><th scope="col">Item</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <!-- Quando o item é usado na porta, o status vira "● usado" -->
+          <tr class="linha-cartao">
+            <td><img src="imagens/item-cartao.svg" alt="">Cartão de acesso</td>
+            <td><span class="estado tem estado-cartao"></span></td>
+          </tr>
+          <tr class="linha-senha">
+            <td><img src="imagens/item-senha.svg" alt="">Senha da saída</td>
+            <td><span class="estado tem estado-senha"></span></td>
+          </tr>
+          <tr class="linha-bateria">
+            <td><img src="imagens/item-bateria.svg" alt="">Bateria 12V</td>
+            <td><span class="estado tem estado-bateria"></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="lista-dicas">
+        <li>Regra da senha: número do experimento ao contrário.</li>
+        <li>Qual era mesmo o número que aparecia no computador?</li>
+      </ul>
+    </aside>
+
+    <nav class="area-saidas saidas" aria-label="Para onde ir">
+      <a class="botao" href="game-over.html#forca"><span class="icone">→</span> Tentar arrombar a porta</a>
+      <a class="botao discreto" href="sala-energia.html">← Voltar à Sala de Energia</a>
+    </nav>
+  </main>
+
+  <footer class="rodape">
+    <nav aria-label="Menu do jogo">
+      <ul>
+        <li><a href="index.html">⌂ Início</a></li>
+        <li><a href="instrucoes.html">? Como jogar</a></li>
+        <li><a href="index.html">↻ Reiniciar jogo</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>

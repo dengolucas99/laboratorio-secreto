@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 6B — FINAL: GAME OVER
+  ---------------------------------------------------------------------
+  UMA página só para TODAS as derrotas. Como?
+  Cada escolha errada aponta para cá com um "#motivo" diferente:
+
+     Sala de Controle:  #lockdown (botão vermelho)  #terminal (hackear)
+     Laboratório:       #capsula  (abrir cápsula)   #tubos (líquido)
+     Sala de Energia:   #choque   (gerador)         #cabos (cabos da parede)
+     Fuga:              #ordem    (cartão antes da bateria)
+                        #forca    (arrombar)        #senha (senha errada)
+
+  Todas as mensagens estão escondidas. A que tiver o id igual ao
+  #motivo da URL vira o :target e aparece (jogo.css, TRUQUE 3b).
+  Assim não precisamos criar 9 páginas quase iguais.
+
+  REGRA DO JOGO: errou, volta para o COMEÇO. Por isso esta página
+  tem só UMA saída: o botão "Recomeçar do início" (index.html).
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Over | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+<body class="game-over">
+
+  <!-- Luz vermelha de sirene no fundo (efeitos.css, seção 7) -->
+  <div class="sirene" aria-hidden="true"></div>
+
+  <header class="hud">
+    <span class="logo">LAB<span>047</span></span>
+    <span class="status">● CONTENÇÃO ATIVADA</span>
+  </header>
+
+  <main class="tela final">
+    <div class="selo" aria-hidden="true">!</div>
+    <p class="sobretitulo">Missão interrompida</p>
+    <h1 class="glitch" data-texto="GAME OVER">GAME OVER</h1>
+
+    <figure class="cena-visual">
+      <img src="imagens/game-over.svg" alt="Tela vermelha de alerta com o símbolo de perigo e a palavra LOCKDOWN">
+    </figure>
+
+    <!-- Contêiner de todas as causas. Cada uma explica o que deu errado
+         e dá uma dica para a próxima tentativa. -->
+    <div class="causas">
+
+      <!-- ---------- Sala de Controle ---------- -->
+      <section class="causa painel" id="lockdown">
+        <h2>Você apertou o LOCKDOWN</h2>
+        <p class="historia">Todas as portas do setor se fecharam ao mesmo tempo. Incluindo a que você precisava.</p>
+        <p class="dica">💡 Dica: nem todo botão vermelho precisa ser apertado.</p>
+      </section>
+
+      <section class="causa painel" id="terminal">
+        <h2>Acesso negado 3 vezes</h2>
+        <p class="historia">Você digitou senhas aleatórias no terminal. Na terceira tentativa, o sistema identificou um intruso e chamou os seguranças.</p>
+        <p class="dica">💡 Dica: na Sala de Controle, as câmeras mostram tudo o que você precisa.</p>
+      </section>
+
+      <!-- ---------- Laboratório ---------- -->
+      <section class="causa painel" id="capsula">
+        <h2>A cápsula explodiu</h2>
+        <p class="historia">A pressão acumulada estourou o vidro. O alarme de contaminação selou o laboratório.</p>
+        <p class="dica">💡 Dica: rachadura + "pressão instável" nunca é boa notícia.</p>
+      </section>
+
+      <section class="causa painel" id="tubos">
+        <h2>Gás tóxico</h2>
+        <p class="historia">Ao abrir a válvula do tubo, o líquido verde virou fumaça. Você desmaia... e acorda dentro da cápsula de novo.</p>
+        <p class="dica">💡 Dica: no laboratório, a resposta está nos papéis e nas telas.</p>
+      </section>
+
+      <!-- ---------- Sala de Energia ---------- -->
+      <section class="causa painel" id="choque">
+        <h2>Choque de 380V</h2>
+        <p class="historia">O gerador estava ligado e o chão, molhado. Você acorda de novo... dentro da cápsula.</p>
+        <p class="dica">💡 Dica: o protocolo da prancheta avisava sobre o gerador.</p>
+      </section>
+
+      <section class="causa painel" id="cabos">
+        <h2>Curto-circuito</h2>
+        <p class="historia">Os cabos da parede eram de alta tensão. Uma faísca derrubou a energia do setor inteiro, e as portas travaram no modo de segurança.</p>
+        <p class="dica">💡 Dica: leia o quadro de força antes de mexer em qualquer coisa.</p>
+      </section>
+
+      <!-- ---------- Fuga ---------- -->
+      <section class="causa painel" id="ordem">
+        <h2>Cartão queimado</h2>
+        <p class="historia">O leitor estava sem energia e deu um pico de tensão ao receber o cartão. O chip derreteu na sua mão.</p>
+        <p class="dica">💡 Dica: um painel desligado não lê nada. O que ele precisa primeiro?</p>
+      </section>
+
+      <section class="causa painel" id="forca">
+        <h2>A porta não cede</h2>
+        <p class="historia">Você bateu na porta de aço até as câmeras te encontrarem. Os seguranças chegaram primeiro.</p>
+        <p class="dica">💡 Dica: o painel ao lado da porta é o caminho.</p>
+      </section>
+
+      <section class="causa painel" id="senha">
+        <h2>Senha incorreta</h2>
+        <p class="historia">O teclado fica vermelho: <strong>"ACESSO NEGADO — TRAVA PERMANENTE"</strong>.</p>
+        <p class="dica">💡 Dica: junte a regra da prancheta com o número que aparece no computador.</p>
+      </section>
+
+      <!-- Mensagem padrão: aparece se alguém abrir game-over.html sem # -->
+      <section class="causa causa-padrao painel">
+        <h2>Protocolo de contenção iniciado</h2>
+        <p class="historia">Alguma escolha deu muito errado. As portas foram seladas.</p>
+      </section>
+    </div>
+
+    <!-- ÚNICA saída: recomeçar o jogo do início -->
+    <nav class="acoes-inicio" aria-label="Fim de jogo">
+      <a class="botao principal" href="index.html">↻ Recomeçar do início</a>
+    </nav>
+  </main>
+
+  <footer class="rodape">
+    <ul>
+      <li>Errou? A missão recomeça do zero.</li>
+    </ul>
+  </footer>
+
+</body>
+</html>

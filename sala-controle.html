@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  PÁGINA 2 — SALA DE CONTROLE           Objetivo: achar o CARTÃO
+  ---------------------------------------------------------------------
+  Esta é a primeira sala de exploração e serve de MODELO para as
+  outras. Todas as salas seguem a mesma estrutura:
+
+    1. HUD (cabeçalho) com o mapa de progresso
+    2. CENA: título, história e imagem com pontos clicáveis
+    3. EXPLORAÇÃO: lista de objetos + resultados escondidos
+    4. INVENTÁRIO: tabela com os itens
+    5. SAÍDAS: porta trancada / porta liberada
+    6. RODAPÉ: menu para voltar ou reiniciar
+
+  Os truques de CSS que fazem isso funcionar estão explicados
+  no arquivo css/jogo.css.
+  =====================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sala de Controle | Laboratório Secreto</title>
+  <link rel="icon" href="imagens/icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/componentes.css">
+  <link rel="stylesheet" href="css/jogo.css">
+  <link rel="stylesheet" href="css/efeitos.css">
+</head>
+
+<!-- A classe "sala-controle" troca a cor de destaque da página (base.css, seção 6) -->
+<body class="sala-controle">
+
+  <!-- ============ 1. HUD ============ -->
+  <header class="hud">
+    <a class="logo" href="index.html">LAB<span>047</span></a>
+
+    <!-- Mapa de progresso. A etapa atual tem aria-current="step",
+         e as já concluídas têm a classe "feito". -->
+    <ol class="progresso" aria-label="Progresso da missão">
+      <li class="feito">Início</li>
+      <li aria-current="step">Controle</li>
+      <li>Laboratório</li>
+      <li>Energia</li>
+      <li>Fuga</li>
+      <li>Final</li>
+    </ol>
+
+    <span class="status">● ALERTA</span>
+  </header>
+
+  <!-- "layout-sala" organiza a página com CSS Grid (base.css, seção 5) -->
+  <main class="tela layout-sala">
+
+    <!-- ============ 2. CENA ============ -->
+    <section class="area-cena">
+      <p class="sobretitulo">Setor 01 • Bloco A</p>
+      <h1>Sala de Controle</h1>
+      <p class="historia">
+        Dezenas de monitores piscam na parede. Numa cadeira, alguém largou
+        uma jaqueta de segurança às pressas. Na mesa, um botão vermelho
+        protegido por uma tampa de vidro.
+      </p>
+
+      <div class="cena-visual">
+        <img src="imagens/sala-controle.svg" alt="Sala de controle com parede de monitores, uma cadeira com jaqueta e um botão vermelho na mesa">
+
+        <!-- HOTSPOTS: pontos clicáveis em cima da imagem.
+             Cada um é um <label> com "for" apontando para o id de um
+             radio lá embaixo. Clicar no label = marcar o radio.
+             As variáveis --x e --y dizem ONDE o ponto fica na imagem.
+
+             IMPORTANTE: todos os pontos têm a MESMA cor. Assim o jogador
+             não sabe, só de olhar, qual escolha é boa e qual é armadilha.
+             - <label>: investiga o objeto (mostra o resultado nesta página)
+             - <a>:     escolha ERRADA, leva direto ao game over -->
+        <label class="hotspot" for="ver-monitores" style="--x: 50%; --y: 28%"><span>Monitores</span></label>
+        <label class="hotspot" for="ver-jaqueta"   style="--x: 21%; --y: 64%"><span>Jaqueta</span></label>
+        <a class="hotspot" href="game-over.html#lockdown" style="--x: 79%; --y: 62%"><span>Botão vermelho</span></a>
+        <a class="hotspot" href="game-over.html#terminal" style="--x: 43%; --y: 72%"><span>Terminal</span></a>
+
+        <p class="legenda">CAM 00 // CLIQUE NOS PONTOS PARA INVESTIGAR</p>
+      </div>
+    </section>
+
+    <!-- ============ 3. EXPLORAÇÃO ============ -->
+    <section class="area-exploracao painel" id="investigar">
+      <h2>O que você quer investigar?</h2>
+
+      <!-- Os mesmos objetos da imagem, em forma de lista.
+           Funciona melhor no celular e para quem usa o teclado. -->
+      <!-- Todos os botões têm a mesma aparência (classe "botao").
+           Os <label> investigam; os <a> são armadilhas que levam ao
+           game over. O jogador só descobre DEPOIS de clicar. -->
+      <ul class="opcoes">
+        <li><label class="botao" for="ver-monitores"><span class="icone">01</span> Olhar os monitores</label></li>
+        <li><a class="botao" href="game-over.html#lockdown"><span class="icone">02</span> Apertar o botão vermelho</a></li>
+        <li><label class="botao" for="ver-jaqueta"><span class="icone">03</span> Revistar a jaqueta</label></li>
+        <li><a class="botao" href="game-over.html#terminal"><span class="icone">04</span> Hackear o terminal</a></li>
+      </ul>
+
+      <!-- RESULTADOS
+           Padrão: um <input type="radio"> e, LOGO DEPOIS, o <article>
+           com o resultado. O CSS mostra o article quando o radio
+           anterior está marcado (seletor "+", veja jogo.css).
+           Todos os radios têm name="investigar", então marcar um
+           desmarca os outros: só um resultado aparece por vez. -->
+
+      <!-- Resultado 01: monitores (só uma pista, sem item) -->
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-monitores">
+      <article class="resultado painel">
+        <h3>📺 Monitores</h3>
+        <p>
+          O telão mostra o mapa do setor: <strong>Controle → Laboratório → Energia → Saída</strong>.
+          Na gravação da câmera 02, um guarda tira a jaqueta, joga na cadeira e sai correndo.
+          Ele estava usando um cartão vermelho preso no bolso...
+        </p>
+      </article>
+
+      <!-- Resultado 02: jaqueta (aqui está o ITEM) -->
+      <input class="investigar oculto" type="radio" name="investigar" id="ver-jaqueta">
+      <article class="resultado painel">
+        <h3>🧥 Jaqueta do guarda</h3>
+        <p>No bolso de dentro tem algo duro e plastificado.</p>
+
+        <div class="item-encontrado">
+          <img src="imagens/item-cartao.svg" alt="Cartão de acesso vermelho, nível 3">
+          <div>
+            <strong>CARTÃO DE ACESSO — NÍVEL 3</strong>
+            <p>Abre as portas internas do setor B.</p>
+
+            <!-- PEGAR O ITEM: um checkbox escondido + um label que parece botão.
+                 Quando o checkbox fica marcado, o CSS:
+                   - troca o texto do botão (.antes -> .depois)
+                   - atualiza a tabela de inventário
+                   - destranca a saída
+                 Tudo isso está em jogo.css (TRUQUE 2). -->
+            <input class="coletar oculto" type="checkbox" id="pegar-cartao">
+            <label class="pegar" for="pegar-cartao">
+              <span class="antes">✋ Pegar o cartão</span>
+              <span class="depois">✓ Guardado na mochila</span>
+            </label>
+          </div>
+        </div>
+      </article>
+
+      <!-- As escolhas erradas (botão vermelho e terminal) não têm
+           resultado aqui: elas são links para game-over.html.
+           O "#lockdown" no fim do link diz à página de game over
+           QUAL mensagem mostrar (TRUQUE 3, jogo.css). -->
+    </section>
+
+    <!-- ============ 4. INVENTÁRIO ============ -->
+    <aside class="area-inventario painel inventario">
+      <h2>🎒 Inventário</h2>
+      <table class="tabela-inventario">
+        <caption>Itens necessários para a fuga</caption>
+        <thead>
+          <!-- scope="col" avisa que esse título vale para a coluna inteira -->
+          <tr><th scope="col">Item</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <!-- O status vem do CSS (::after). A classe "falta" mostra "✗ não tem".
+               Quando o cartão é pego, jogo.css troca para "✓ na mochila". -->
+          <tr class="linha-cartao">
+            <td><img src="imagens/item-cartao.svg" alt="">Cartão de acesso</td>
+            <td><span class="estado falta estado-cartao"></span></td>
+          </tr>
+          <tr class="linha-senha">
+            <td><img src="imagens/item-senha.svg" alt="">Senha da saída</td>
+            <td><span class="estado falta estado-senha"></span></td>
+          </tr>
+          <tr class="linha-bateria">
+            <td><img src="imagens/item-bateria.svg" alt="">Bateria 12V</td>
+            <td><span class="estado falta estado-bateria"></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ul class="lista-dicas">
+        <li>Os monitores mostram o que aconteceu aqui.</li>
+        <li>A porta do laboratório usa leitor de cartão.</li>
+      </ul>
+    </aside>
+
+    <!-- ============ 5. SAÍDAS ============ -->
+    <nav class="area-saidas saidas" aria-label="Para onde ir">
+      <!-- Enquanto não tem o cartão, aparece só este aviso (não é link) -->
+      <div class="saida-trancada">🔒 Porta do laboratório trancada. Encontre um cartão.</div>
+
+      <!-- Quando o cartão é pego, este link aparece (jogo.css, TRUQUE 2c) -->
+      <a class="botao principal saida-liberada" href="laboratorio.html">🔓 Entrar no Laboratório →</a>
+
+      <a class="botao discreto" href="index.html">← Voltar ao início</a>
+    </nav>
+  </main>
+
+  <!-- ============ 6. RODAPÉ ============ -->
+  <footer class="rodape">
+    <nav aria-label="Menu do jogo">
+      <ul>
+        <li><a href="index.html">⌂ Início</a></li>
+        <li><a href="instrucoes.html">? Como jogar</a></li>
+        <li><a href="index.html">↻ Reiniciar jogo</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>
